@@ -1,19 +1,14 @@
 {
-    "name": "sakulstra/User",
-    "description": "CakePHP User plugin",
-    "type": "cakephp-plugin",
-    "keywords": ["cakephp", "user", "login"],
-    "homepage": "http://lukas-strassel.de",
+    "name": "sakulstra/user",
+    "description": "Cakephp User plugin",
+    "require": {
+        "php": ">=5.3.0"
+    },
     "license": "MIT",
     "authors": [
         {
-            "name": "Lukas Strassel",
-            "homepage": "http://mark-story.com",
-            "role": "Author"
+            "name": "sakulstra",
+            "email": "lukasstrassel@googlemail.com"
         }
-    ],
-    "require": {
-        "php": ">=5.3.0",
-        "composer/installers": "*"
-    }
+    ]
 }
