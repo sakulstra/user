@@ -1,5 +1,6 @@
 {
     "name": "sakulstra/user",
+    "type": "cakephp-plugin",
     "description": "Cakephp User plugin",
     "require": {
         "php": ">=5.3.0"
@@ -10,5 +11,8 @@
             "name": "sakulstra",
             "email": "lukasstrassel@googlemail.com"
         }
-    ]
+    ],
+    "extra": {
+        "installer-name": "User"
+    }
 }
