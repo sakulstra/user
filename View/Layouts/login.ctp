@@ -36,7 +36,7 @@
 </div>
 <?php //echo $this->element('sql_dump'); ?>
 <?php
-echo $this->Html->script(array('jquery','bootstrap.min'));
+echo $this->Html->script(array('jquery.min','bootstrap.min'));
 ?>
 </body>
 <style type="text/css">

@@ -38,10 +38,5 @@ class UserListener implements CakeEventListener{
                 )
             ));
         return;
-        //$controller = new UserAppController();
-        //$controller->Component->init();
-        //$data = $event->data;
-        //$subject = $event->subject();
-        //debug($event->data);die();
     }
 }
