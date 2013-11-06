@@ -14,37 +14,9 @@ class UsersController extends UserAppController {
      *
      * @return void
      */
-    public $components = array(
-        'Paginator',
-        'Security',
+    public $components = array('Paginator',
         'Session',
-        'Cookie',
-        'Auth'=>array(
-            'loginAction' => array(
-                'controller' => 'users',
-                'action' => 'login',
-                'plugin' => 'user',
-                'admin' => false
-            ),
-            'flash' => array(
-                'element' => 'alert',
-                'key' => 'auth',
-                'params' => array(
-                    'plugin' => 'User',
-                    'class' => 'alert-danger'
-                )
-            ),
-            'authenticate'=>array(
-                'Form'=>array(
-                    'passwordHasher' => 'Blowfish',
-                    'userModel'=>'User.User',
-                    'fields'=>array(
-                        'username'=>'email'
-                    ),
-                    'scope'=>array('User.active' => 1),
-                )
-            )
-        ));
+        'Cookie');
 
     public $helpers = array('Session');
 
