@@ -23,11 +23,7 @@
 			<?php echo $this->Form->create('User', array('inputDefaults' => array('label' => false), 'role' => 'form')); ?>
 				<fieldset>
 					<h2><?php echo __('Admin Edit User'); ?></h2>
-			<div class="form-group">
-	<?php echo $this->Form->label('id', 'id');?>
-		<?php echo $this->Form->input('id', array('class' => 'form-control')); ?>
-</div><!-- .form-group -->
-
+<?php echo $this->Form->hidden('id');?>
 <div class="form-group">
 	<?php echo $this->Form->label('username', 'username');?>
 		<?php echo $this->Form->input('username', array('class' => 'form-control')); ?>
@@ -36,11 +32,6 @@
 <div class="form-group">
 	<?php echo $this->Form->label('email', 'email');?>
 		<?php echo $this->Form->input('email', array('class' => 'form-control')); ?>
-</div><!-- .form-group -->
-
-<div class="form-group">
-	<?php echo $this->Form->label('password', 'password');?>
-		<?php echo $this->Form->input('password', array('class' => 'form-control')); ?>
 </div><!-- .form-group -->
 
 <div class="form-group">

@@ -3,7 +3,6 @@
         <div class="btn-group">
             <?php echo $this->Html->link(__('Add User'),array('plugin'=>'user','controller'=>'users','action'=>'add'),array('class'=>"btn btn-success"));?>
             <?php echo $this->Html->link(__('List Groups'),array('plugin'=>'user','controller'=>'groups','action'=>'index'),array('class'=>"btn btn-default"));?>
-            <?php //echo $this->Html->link(__('Add Group'),array('plugin'=>'user','controller'=>'groups','action'=>'add'),array('class'=>"btn btn-success"));?>
         </div>
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -24,6 +23,15 @@
 <div id="menue" class="row">
     <div class="table-responsive col-lg-12">
         <table class="table table-hover">
+            <tr>
+                <th><?php echo $this->Paginator->sort('username'); ?></th>
+                <th><?php echo $this->Paginator->sort('email'); ?></th>
+                <th><?php echo $this->Paginator->sort('group_id'); ?></th>
+                <th><?php echo $this->Paginator->sort('active'); ?></th>
+                <th><?php echo $this->Paginator->sort('modified'); ?></th>
+                <th><?php echo $this->Paginator->sort('created'); ?></th>
+                <th class="actions"><?php echo __('Actions'); ?></th>
+            </tr>
                <?php foreach ($users as $user): ?>
             <tr>
                 <td><?php echo h($user['User']['username']); ?>&nbsp;</td>
@@ -31,7 +39,7 @@
                 <td>
                     <?php echo $this->Html->link($user['Group']['name'], array('controller' => 'groups', 'action' => 'view', $user['Group']['id'])); ?>
                 </td>
-                <td><?php echo h($user['User']['active']); ?>&nbsp;</td>
+                <td><?php echo $user['User']['active']==1?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>'; ?>&nbsp;</td>
                 <td><?php echo h($user['User']['modified']); ?>&nbsp;</td>
                 <td><?php echo h($user['User']['created']); ?>&nbsp;</td>
                 <td class="actions">
@@ -41,7 +49,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> '.__('Edit'),array('plugin'=>'user','controller'=>'users','action'=>'edit'),array('escape'=>false));?></li>
+                            <li><?php echo $this->Html->link('<i class="glyphicon glyphicon-pencil"></i> '.__('Edit'),array('plugin'=>'user','controller'=>'users','action'=>'edit',$user['User']['id']),array('escape'=>false));?></li>
                             <li><?php echo $this->Form->postLink('<i class="glyphicon glyphicon-remove"></i> '.__('Delete'),array('plugin'=>'user','controller'=>'users','action'=>'delete',$user['User']['id']),array('escape'=>false), __('Are you sure you want to delete # %s?', $user['User']['id']));?></li>
                         </ul>
                     </div>
