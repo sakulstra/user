@@ -27,6 +27,25 @@
 </head>
 <body>
 <div id="container">
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><?php echo($this->request->action=='login')?
+                        $this->Html->link(__('Register'),'/register'):
+                        $this->Html->link(__('Login'),'/login');?></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
     <div id="content">
         <?php echo $this->Session->flash(); ?>
         <div style="margin:0 auto;width:330px;padding:15px;">
@@ -58,11 +77,6 @@ echo $this->Html->script(array('jquery.min','bootstrap.min'));
         margin-bottom: -1px;
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-    }
-    .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
     }
     .form-signin .form-signin-heading,
     .form-signin .checkbox {

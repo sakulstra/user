@@ -8,45 +8,18 @@ App::uses('UserAppController', 'User.Controller');
  */
 class UsersController extends UserAppController {
 
+    public function beforeFilter(){
+        $this->Auth->allow(array('add','login'));
+    }
 
     /**
      * admin_index method
      *
      * @return void
      */
-    public $components = array('Paginator',
-        'Session',
-        'Cookie');
+    public $components = array('Paginator');
 
     public $helpers = array('Session');
-
-    public $uses = array('User');
-
-    public function beforeFilter(){
-        parent::beforeFilter();
-        $this->Auth->allow('add','login');
-        // set cookie options
-        $this->Cookie->key = 'qSI232qsdf&sXSAvaXSL#$%)aq§bOw!adr23e@34$@11~_+!@#HKisasA4""$';
-        $this->Cookie->httpOnly = true;
-
-        if (!$this->Auth->loggedIn() && $this->Cookie->read('remember_me_cookie')) {
-            $cookie = $this->Cookie->read('remember_me_cookie');
-
-            $user = $this->User->find('first', array(
-                'conditions' => array(
-                    'User.email' => $cookie['email'],
-                    'User.password' => $cookie['password']
-                )
-            ));
-
-            if ($user && !$this->Auth->login($user)) {
-                $this->redirect('/logout'); // destroy session & cookie
-            }
-        }
-        if($this->Auth->loggedIn())
-            $this->set('user',$this->Auth->user());
-    }
-
 
     public function login(){
         $this->layout = 'User.login';
@@ -75,10 +48,11 @@ class UsersController extends UserAppController {
     }
 
     public function add(){
+        $this->layout = 'User.login';
         if($this->request->is('post')){
             $this->User->create();
             if($this->User->save($this->request->data)){
-                $this->redirect('/');
+                $this->redirect('/login');
             }
         }
     }

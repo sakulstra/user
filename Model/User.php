@@ -51,6 +51,12 @@ class User extends UserAppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+        'confirmation_password' => array(
+            'equal' => array(
+                'rule' => array('equal','password'),
+                'message' => 'Passwords are different',
+            )
+        ),
 		'group_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -86,5 +92,11 @@ class User extends UserAppModel {
             $this->data['User']['password'] = $passwordHasher->hash($this->data['User']['password']);
         }
         return true;
+    }
+
+    public function equal($field = null,$target = null){
+        if($this->data['User'][key($field)]==$this->data['User'][$target])
+            return true;
+        return false;
     }
 }
