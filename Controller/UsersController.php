@@ -9,6 +9,7 @@ App::uses('UserAppController', 'User.Controller');
 class UsersController extends UserAppController {
 
     public function beforeFilter(){
+        parent::beforeFilter();
         $this->Auth->allow(array('add','login'));
     }
 
