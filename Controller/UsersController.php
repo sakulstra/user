@@ -1,5 +1,6 @@
 <?php
 App::uses('UserAppController', 'User.Controller');
+App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 /**
  * Users Controller
  *
@@ -13,6 +14,12 @@ class UsersController extends UserAppController {
         $this->Auth->allow(array('add','login'));
     }
 
+    public function isAuthorized($user = null){
+        if($user != null && $this->request->action == 'changePassword'){
+            return true;
+        }
+        parent::isAuthorized($user);
+    }
     /**
      * admin_index method
      *
@@ -46,6 +53,24 @@ class UsersController extends UserAppController {
     public function logout(){
         $this->Cookie->delete('remember_me_cookie');
         return $this->redirect($this->Auth->logout());
+    }
+
+    public function changePassword(){
+        if($this->request->is('post')){
+            //überprüfen ob altes passwort richtig ist
+            $this->request->data['User']['id'] = $this->Auth->user('id');
+            $this->User->set($this->request->data);
+            if($this->User->validates()){
+                $user = $this->User->read(null,$this->Auth->user('id'));
+                if($user['User']['password']==Security::hash($this->request->data['User']['old_password'], 'blowfish', $user['User']['password'])){
+                    if($this->User->save($this->request->data)){
+                        $this->redirect($this->Auth->logout());
+                    }
+                }else{
+                    $this->User->invalidate('old_password','Flasches Passwort');
+                }
+            }
+        }
     }
 
     public function add(){

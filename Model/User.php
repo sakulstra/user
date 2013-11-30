@@ -57,6 +57,11 @@ class User extends UserAppModel {
                 'message' => 'Passwords are different',
             )
         ),
+        'old_password' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty')
+            )
+        ),
 		'group_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -87,7 +92,7 @@ class User extends UserAppModel {
 	);
 
     public function beforeSave($options = array()) {
-        if (!$this->id) {
+        if (isset($this->data['User']['password'])) {
             $passwordHasher = new BlowfishPasswordHasher();
             $this->data['User']['password'] = $passwordHasher->hash($this->data['User']['password']);
         }
