@@ -18,7 +18,7 @@ class UsersController extends UserAppController {
         if($user != null && $this->request->action == 'changePassword'){
             return true;
         }
-        parent::isAuthorized($user);
+        return parent::isAuthorized($user);
     }
     /**
      * admin_index method
