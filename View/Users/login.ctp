@@ -21,4 +21,6 @@ echo $this->Form->input('password',array('label'=>false,'placeholder'=>__('Passw
 echo $this->Form->input('remember_me',array('type'=>'checkbox','class' => false,'div'=>'checkbox'));
 echo $this->Form->submit(__('Sign in'),array('class'=>'btn btn-lg btn-primary btn-block','style'=>'margin-bottom: 10px;border-top-left-radius: 0;border-top-right-radius: 0;'));
 echo $this->Form->end();
+echo $this->Html->link('Passwort vergessen','/newPassword');
+
 ?>

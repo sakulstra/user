@@ -1,6 +1,7 @@
 <?php
 App::uses('UserAppController', 'User.Controller');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Users Controller
  *
@@ -167,4 +168,37 @@ class UsersController extends UserAppController {
             $this->Session->setFlash(__('The user could not be deleted. Please, try again.'));
         }
         return $this->redirect(array('action' => 'index'));
-    }}
+    }
+
+    /**
+     * Passwortgenerierung
+     */
+    public function newPassword(){
+        if($this->request->is('post')){
+            //wenn benutzer existiert
+            if($this->User->hasAny(array(
+                'User.email'=>$this->request->data['User']['email']))){
+                $newpassword = String::uuid();
+                $user = $this->User->findByEmail($this->request->data['User']['email']);
+                $this->User->id = $user['User']['id'];
+                $this->User->saveField('password',$newpassword);
+                //debug($this->User);die();
+                //$this->User->set(array('User.password'=>$newpassword));
+                $this->User->save();
+                $email = new CakeEmail('default');
+                $email->to($this->request->data['User']['email']);
+                $email->subject('Zentraldatei:Ihr Passwort wurde zurück gesetzt.');
+                debug($email);
+                if($email->send('Hallo ihr neues Passwort lautet:'.$newpassword)){
+                    $this->Session->setFlash('Ein neues Passwort wurde generiert und ihnen als Email zugesendet. Bitte überprüfen sie auch ihren Spam-Ordner.');
+                }else{
+                    $this->Session->setFlash('Fehler beim senden der email.');
+                }
+            }else{
+                $this->Session->setFlash('Ungültige Email-Adresse.');
+            }
+        }
+    }
+
+
+}
