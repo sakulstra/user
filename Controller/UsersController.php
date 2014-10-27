@@ -185,7 +185,7 @@ class UsersController extends UserAppController {
                 $this->User->save();
                 $email = new CakeEmail('default');
                 $email->to($this->request->data['User']['email']);
-                $email->subject('Zentraldatei:Ihr Passwort wurde zurück gesetzt.');
+                $email->subject('Ihr Passwort wurde zurück gesetzt.');
                 if($email->send('Hallo ihr neues Passwort lautet:'.$newpassword)){
                     $this->Session->setFlash('Ein neues Passwort wurde generiert und ihnen als Email zugesendet. Bitte überprüfen sie auch ihren Spam-Ordner.');
                 }else{
